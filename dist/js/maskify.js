@@ -32,8 +32,13 @@ Element.prototype.maskify = function(mask) {
     ];
     const SPLITMASK = mask.split('');
     
-    this.addEventListener('keydown', keydownEvent);
+    this.addEventListener('keydown', HandleKeydownEvent);
 
+    /**
+     * Check the next character in the mask, if it is a special character return the char else return a empty string
+     * @param {integer} currentIndex Current index of the mask in the function handleKeydownEvent
+     * @return {string} special character if the next character is a special character, empty string if not
+     */
     function NextMaskChar(currentIndex) {
         currentIndex++;
 
@@ -46,7 +51,7 @@ Element.prototype.maskify = function(mask) {
      * @param {event} event - That parameter is passed by the addEventListener builtin of JavaScript.
      * @param {string} mask - This is the mask passed in the maskify function.
      */
-    function keydownEvent(event) {
+    function HandleKeydownEvent(event) {
         event.preventDefault();
         let targetValue = event.target.value;
 

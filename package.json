@@ -1,0 +1,28 @@
+{
+  "name": "maskify",
+  "version": "1.0.0",
+  "description": "Create masks for html inputs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustavosvalentim/maskify.git"
+  },
+  "keywords": [
+    "input",
+    "masks",
+    "maskify",
+    "javascript",
+    "js"
+  ],
+  "author": "Gustavo Valentim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gustavosvalentim/maskify/issues"
+  },
+  "homepage": "https://github.com/gustavosvalentim/maskify#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "grunt": "^1.0.4",
+    "grunt-babel": "^8.0.0"
+  }
+}
