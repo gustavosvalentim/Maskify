@@ -6,7 +6,15 @@
  * @param {string} mask String used as the mask for the input
  * @return void
  */
-Element.prototype.maskify = function(mask) {
+Element.prototype.maskify = function(mask, options = null) {
+    if(options === null) {
+        options = {
+            debug: false
+        }
+    }
+
+    const OPTIONS = options;
+    // Keycodes that will be processed
     const KEYCODES = [
         8,  // backspace
         9,  // tab
@@ -18,6 +26,7 @@ Element.prototype.maskify = function(mask) {
         20, // caps lock
         32, // space
     ];
+    // Special chars that will be considered when inserting masks
     const SPECIALCHARS = [
         '(',
         ')',
@@ -30,8 +39,10 @@ Element.prototype.maskify = function(mask) {
         '-',
         ' '
     ];
+    // An array including each char of the mask
     const SPLITMASK = mask.split('');
     
+    this.setAttribute('placeholder', mask);
     this.addEventListener('keydown', HandleKeydownEvent);
 
     /**
@@ -52,9 +63,23 @@ Element.prototype.maskify = function(mask) {
      * @param {string} mask - This is the mask passed in the maskify function.
      */
     function HandleKeydownEvent(event) {
+        /* Prevent that the user input appear before it be processed */
         event.preventDefault();
+        
+        /* Debug ON */
+        if(OPTIONS.debug) {
+            console.log(event.key);
+        }
+
+        /**
+         * The current value of the target input
+         * This value is all the characters that already have been entered in the input
+         */
         let targetValue = event.target.value;
 
+        /**
+         * Process the keycodes declared above
+         */
         if(KEYCODES.includes(event.keyCode)) {
             switch(event.keyCode) {
                 case 8:
@@ -68,6 +93,9 @@ Element.prototype.maskify = function(mask) {
             }
         }
     
+        /**
+         * Process the special characteres
+         */
         if(SPECIALCHARS.includes(SPLITMASK[targetValue.length])) {
             event.target.value += SPLITMASK[targetValue.length];
 
@@ -75,6 +103,9 @@ Element.prototype.maskify = function(mask) {
             if(nextChar !== '') event.target.value += nextChar;
         }
     
+        /**
+         * If the char is an alphanumeric char, include it in the input
+         */
         event.target.value += event.key;
     }
 }
